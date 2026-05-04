@@ -1,0 +1,1641 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>醫師個人品牌人設定位量表</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F0E8;
+    --paper: #FBF8F3;
+    --ink: #1A1614;
+    --ink-soft: #6B635C;
+    --ink-faint: #8A7F73;
+    --line: #D4CCC0;
+    --line-soft: #E5DDD0;
+    --accent: #B85C38;
+    --serif: 'Noto Serif TC', serif;
+    --display: 'Fraunces', serif;
+    --sans: 'Noto Sans TC', sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    font-family: var(--sans);
+    color: var(--ink);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    padding: 40px 32px;
+  }
+  .footer-tag {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 11px;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    font-family: var(--display);
+    text-transform: uppercase;
+  }
+
+  /* Welcome */
+  .welcome { text-align: center; padding: 60px 24px; }
+  .welcome .eyebrow {
+    font-size: 11px; letter-spacing: 0.3em; color: var(--accent);
+    margin-bottom: 24px; text-transform: uppercase; font-family: var(--display);
+  }
+  .welcome h1 {
+    font-family: var(--serif); font-size: 36px; font-weight: 600;
+    color: var(--ink); line-height: 1.3; margin: 0 0 20px; letter-spacing: 0.02em;
+  }
+  .welcome p {
+    font-size: 15px; color: var(--ink-soft); line-height: 1.8;
+    max-width: 460px; margin: 0 auto 40px;
+  }
+  .stats { display: flex; justify-content: center; gap: 32px; margin-bottom: 48px; flex-wrap: wrap; }
+  .stat { text-align: center; }
+  .stat .num { font-family: var(--display); font-size: 32px; font-weight: 500; color: var(--ink); }
+  .stat .lbl { font-size: 11px; letter-spacing: 0.1em; color: var(--ink-faint); text-transform: uppercase; margin-top: 4px; }
+
+  /* Buttons */
+  .btn-primary {
+    padding: 16px 48px; background: var(--ink); color: var(--paper);
+    border: none; font-family: var(--sans); font-size: 14px;
+    letter-spacing: 0.1em; cursor: pointer; font-weight: 500;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-primary:disabled { background: #C8BFB1; cursor: not-allowed; }
+  .btn-secondary {
+    padding: 14px 28px; background: transparent; border: 1px solid var(--ink);
+    color: var(--ink); font-family: var(--sans); font-size: 14px;
+    letter-spacing: 0.05em; cursor: pointer; font-weight: 500;
+  }
+  .nav-buttons {
+    display: flex; justify-content: space-between; margin-top: 40px; gap: 12px;
+  }
+  .nav-buttons .placeholder { width: 1px; }
+  .nav-next {
+    padding: 14px 28px; background: var(--ink); color: var(--paper);
+    border: none; font-family: var(--sans); font-size: 14px;
+    letter-spacing: 0.05em; cursor: pointer; font-weight: 500;
+  }
+  .nav-next:disabled { background: #C8BFB1; cursor: not-allowed; }
+
+  /* Progress */
+  .progress { margin-bottom: 32px; }
+  .progress-labels {
+    display: flex; justify-content: space-between; margin-bottom: 12px;
+    font-size: 11px; letter-spacing: 0.05em; color: var(--ink-soft);
+    flex-wrap: wrap; gap: 4px;
+  }
+  .progress-labels span { font-size: 12px; }
+  .progress-labels span.done { color: var(--ink); }
+  .progress-labels span.cur { color: var(--accent); font-weight: 600; }
+  .progress-labels span.upcoming { color: #B5ADA0; }
+  .progress-bar { height: 2px; background: var(--line-soft); overflow: hidden; }
+  .progress-bar > div { height: 100%; background: var(--accent); transition: width 0.4s ease; }
+
+  /* Section header */
+  .section-header { margin-bottom: 32px; }
+  .section-header .label {
+    font-family: var(--display); font-size: 13px; letter-spacing: 0.2em;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .section-header h2 {
+    font-family: var(--serif); font-size: 26px; font-weight: 600;
+    color: var(--ink); margin: 0 0 8px; letter-spacing: 0.02em;
+  }
+  .section-header .subtitle {
+    font-size: 14px; color: var(--ink-soft); margin: 0;
+  }
+
+  /* Info form */
+  .field { margin-bottom: 20px; }
+  .field-label {
+    display: block; font-size: 13px; font-weight: 500; color: var(--ink);
+    margin-bottom: 8px; letter-spacing: 0.02em;
+  }
+  .field-input, .field-select {
+    width: 100%; padding: 12px 14px; font-size: 15px;
+    border: 1px solid var(--line); background: var(--paper);
+    font-family: var(--sans); color: var(--ink);
+    outline: none;
+  }
+  .field-input:focus, .field-select:focus { border-color: var(--accent); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .pill-group { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pill {
+    padding: 10px 18px; background: var(--paper); color: var(--ink);
+    border: 1px solid var(--line); font-family: var(--sans); font-size: 14px;
+    cursor: pointer; letter-spacing: 0.02em;
+    transition: all 0.15s ease;
+  }
+  .pill.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+  /* Choice question */
+  .question { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid var(--line-soft); }
+  .question:last-of-type { border-bottom: none; }
+  .question .head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .question .num {
+    font-family: var(--display); font-size: 14px; color: var(--accent); font-weight: 500;
+  }
+  .question .title {
+    font-family: var(--serif); font-size: 17px; font-weight: 600;
+    color: var(--ink); margin: 0; letter-spacing: 0.02em;
+  }
+  .question .sub {
+    font-size: 12px; color: var(--ink-faint); margin-bottom: 14px; margin-left: 32px;
+  }
+  .question .options {
+    display: flex; flex-direction: column; gap: 8px; margin-left: 32px; margin-top: 14px;
+  }
+  .opt {
+    text-align: left; padding: 12px 16px; cursor: pointer;
+    background: var(--paper); color: var(--ink);
+    border: 1px solid var(--line);
+    font-family: var(--sans); font-size: 14px;
+    transition: all 0.15s ease;
+    display: flex; align-items: center; gap: 12px;
+    width: 100%;
+  }
+  .opt:hover { border-color: var(--ink-faint); }
+  .opt.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .opt .mark {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--ink-faint);
+    border-radius: 4px;
+    background: transparent; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    transition: all 0.15s ease;
+  }
+  .opt.single .mark { border-radius: 50%; }
+  .opt.on .mark {
+    border-color: var(--paper); background: var(--paper);
+  }
+  .opt.on .mark svg { display: block; }
+  .opt .mark svg { display: none; }
+  .opt .empty-hint {
+    font-size: 13px; color: var(--ink-faint); padding: 12px 16px;
+    background: var(--paper); border: 1px dashed var(--line);
+    width: 100%;
+  }
+
+  /* Slider question */
+  .scale-q { margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--line-soft); }
+  .scale-q .head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 8px; }
+  .scale-q .head-row {
+    flex: 1; display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .scale-q .left, .scale-q .right {
+    font-family: var(--serif); font-size: 15px; font-weight: 600;
+  }
+  .scale-q .left { color: var(--ink-faint); }
+  .scale-q .right { color: var(--ink-faint); }
+  .scale-q.lean-left .left { color: var(--ink); }
+  .scale-q.lean-right .right { color: var(--ink); }
+  .scale-q .tag {
+    font-size: 10px; letter-spacing: 0.15em; color: var(--accent);
+    font-family: var(--display); text-transform: uppercase; font-weight: 500;
+  }
+  .scale-q .hint {
+    font-size: 12px; color: var(--ink-faint); margin-left: 32px;
+    margin-bottom: 12px; line-height: 1.6;
+  }
+  .scale-q .scale-buttons {
+    display: flex; justify-content: space-between; gap: 8px; margin-left: 32px;
+  }
+  .scale-q .sb {
+    flex: 1; padding: 14px 0; cursor: pointer;
+    background: var(--paper); color: var(--ink-faint);
+    border: 1px solid var(--line);
+    font-family: var(--display); font-size: 15px; font-weight: 500;
+    transition: all 0.15s ease;
+  }
+  .scale-q .sb.on {
+    background: var(--accent); color: var(--paper); border-color: var(--accent);
+  }
+
+  /* Easter (textarea) */
+  .easter-q { margin-bottom: 32px; padding-bottom: 32px; border-bottom: 1px solid var(--line-soft); }
+  .easter-q .head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .easter-q .body { margin-left: 32px; margin-top: 10px; }
+  .easter-q .hint {
+    font-size: 12px; color: var(--ink-faint); margin-bottom: 10px; line-height: 1.6;
+  }
+  .easter-q .hint b { color: var(--accent); margin-right: 4px; font-weight: 500; }
+  .easter-q textarea {
+    width: 100%; padding: 12px 14px; font-size: 14px;
+    border: 1px solid var(--line); background: var(--paper);
+    font-family: var(--sans); color: var(--ink);
+    outline: none; resize: vertical; line-height: 1.6;
+  }
+  .easter-q textarea:focus { border-color: var(--accent); }
+
+  /* Report view */
+  .action-group { margin-bottom: 24px; }
+  .action-group-label {
+    font-family: var(--display); font-size: 11px; letter-spacing: 0.2em;
+    color: var(--accent); margin-bottom: 12px; text-transform: uppercase; font-weight: 500;
+  }
+  .action-primary { display: flex; flex-direction: column; gap: 10px; }
+  .action-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn-action {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 18px; cursor: pointer; text-align: left;
+    font-family: var(--sans); font-size: 15px; line-height: 1.4;
+    transition: all 0.15s ease; border: 1px solid transparent;
+    min-height: 56px;
+  }
+  .btn-action .ico { font-size: 22px; flex-shrink: 0; }
+  .btn-action .lbl { font-weight: 600; flex: 1; }
+  .btn-action .hint {
+    font-size: 11.5px; color: var(--ink-faint); font-weight: 400;
+    margin-left: auto; text-align: right; max-width: 50%;
+  }
+  .btn-action-primary {
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .btn-action-primary .hint { color: rgba(251,248,243,0.65); }
+  .btn-action-primary:active { background: #2A2420; }
+  .btn-action-sec {
+    background: var(--paper); color: var(--ink); border-color: var(--line);
+    font-size: 13.5px; min-height: 48px; gap: 8px;
+  }
+  .btn-action-sec .ico { font-size: 18px; }
+  .btn-action-sec:active { background: var(--bg); }
+
+  .report-info {
+    background: var(--paper); border: 1px dashed var(--line);
+    padding: 18px 22px; margin: 8px 0 24px;
+    font-size: 13px; color: var(--ink-soft); line-height: 1.7;
+  }
+  .report-info .head {
+    font-weight: 600; color: var(--ink); margin-bottom: 6px;
+    font-size: 13px; letter-spacing: 0.03em;
+  }
+  .preview-frame {
+    width: 100%; height: 600px; border: 1px solid var(--line); background: var(--paper);
+    margin-top: 16px;
+  }
+
+  /* Mobile RWD */
+  @media (max-width: 600px) {
+    body { padding: 0; }
+    .wrap { padding: 24px 16px 32px; border: none; }
+    .field-row { grid-template-columns: 1fr; }
+    .welcome { padding: 40px 12px; }
+    .welcome h1 { font-size: 26px; }
+    .welcome p { font-size: 14px; }
+    .stats { gap: 16px; }
+    .stat .num { font-size: 28px; }
+    .section-header h2 { font-size: 22px; }
+    .progress-labels { font-size: 10.5px; }
+    .progress-labels span { font-size: 10.5px; }
+    .question { margin-bottom: 28px; padding-bottom: 28px; }
+    .question .sub, .question .options { margin-left: 0; }
+    .question .head { gap: 8px; }
+    .question .num { font-size: 12px; }
+    .question .title { font-size: 15.5px; }
+    .opt {
+      padding: 14px 14px; font-size: 14.5px; min-height: 48px;
+    }
+    .scale-q { margin-bottom: 26px; padding-bottom: 22px; }
+    .scale-q .head-row { font-size: 13px; }
+    .scale-q .left, .scale-q .right { font-size: 13.5px; }
+    .scale-q .hint, .scale-q .scale-buttons { margin-left: 0; }
+    .scale-q .hint { font-size: 11.5px; }
+    .scale-q .sb { padding: 16px 0; font-size: 16px; min-height: 48px; }
+    .easter-q .body { margin-left: 0; }
+    .easter-q textarea { font-size: 16px; }
+    .nav-buttons { gap: 8px; flex-direction: column-reverse; }
+    .nav-buttons .btn-secondary, .nav-buttons .nav-next {
+      width: 100%; padding: 14px; min-height: 48px; font-size: 15px;
+    }
+    .btn-action { padding: 14px 14px; min-height: 52px; font-size: 14.5px; gap: 10px; }
+    .btn-action .ico { font-size: 20px; }
+    .btn-action .hint { display: none; }
+    .btn-action-sec { font-size: 12.5px; padding: 12px 8px; min-height: 44px; }
+    .btn-action-sec .ico { font-size: 16px; }
+    .action-row { grid-template-columns: 1fr 1fr; gap: 6px; }
+    .field-input, .field-select {
+      font-size: 16px;
+    }
+    .pill { font-size: 14px; padding: 10px 16px; min-height: 44px; }
+    .preview-frame { height: 500px; }
+  }
+  @media (max-width: 380px) {
+    .progress-labels { display: none; }
+    .progress-labels:before {
+      content: attr(data-current);
+      display: block; font-size: 12px; color: var(--accent);
+      letter-spacing: 0.1em; font-weight: 600;
+    }
+  }
+
+  /* Prevent iOS Safari zoom on input focus */
+  @supports (-webkit-touch-callout: none) {
+    input, select, textarea { font-size: 16px !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app-root"></div>
+<div class="footer-tag" id="footer-tag">Doctor Persona Survey · v3.0</div>
+
+<script>
+// ===== 部署設定（請依需要修改） =====
+// 這個 Email 會自動帶入「Email 寄給團隊」按鈕的收件人欄位。
+// 留空字串 '' 則不指定，由醫師自行選擇收件人。
+const TEAM_EMAIL = '';
+// 同上，可填多組 LINE/通訊聯絡資訊，會顯示在報告頁的提示區
+const TEAM_HINT = '請將報告分享給品牌團隊（LINE / Email）';
+
+// ===== Data Constants =====
+
+const SPECIALTIES = [
+  '醫美 / 整形外科',
+  '皮膚科 / 美容皮膚',
+  '婦產科 / 產後修復',
+  '泌尿科 / 男性健康',
+  '小兒科',
+  '耳鼻喉科',
+  '一般外科 / 乳房外科',
+  '直腸外科 / 腸胃科',
+  '內科系（家醫、內科）',
+  '其他'
+];
+
+const TREATMENTS_BY_SPECIALTY = {
+  '醫美 / 整形外科': [
+    '微整形（總攬：玻尿酸 / 肉毒）',
+    '玻尿酸填補（淚溝 / 法令紋 / 蘋果肌）',
+    '肉毒桿菌（除皺 / 瘦臉 / 多汗）',
+    '童顏針 / 晶亮瓷 / 舒顏萃',
+    '臉部微整形（中下臉重塑）',
+    '淚溝填補',
+    '法令紋 / 木偶紋處理',
+    '蘋果肌 / 中臉填補',
+    '抬頭紋 / 眉間紋 / 魚尾紋',
+    '雙下巴 / 下顎線雕塑',
+    '嘴唇豐唇 / 唇形雕塑',
+    '電波拉提（Thermage / Sofwave）',
+    '音波拉提（Ulthera / Ultraformer）',
+    '皮秒雷射 / 除斑 / 除刺青',
+    '飛梭雷射 / 換膚',
+    '線雕 / 埋線拉提',
+    '雙眼皮 / 眼袋手術',
+    '隆鼻 / 鼻整形',
+    '抽脂 / 體雕 / 冷凍減脂',
+    '隆乳 / 自體脂肪豐胸',
+    '私密處雷射 / 緊實',
+    '頭皮 / 生髮療程'
+  ],
+  '皮膚科 / 美容皮膚': [
+    '青春痘 / 痘疤治療',
+    '異位性皮膚炎 / 濕疹',
+    '雷射除斑 / 肝斑治療',
+    '落髮 / 生髮療程',
+    '雞眼 / 病毒疣 / 灰指甲',
+    '醫美雷射 / 光電',
+    '醫美注射（玻尿酸 / 肉毒）',
+    '蟹足腫 / 疤痕治療',
+    '皮膚癌 / 皮膚腫瘤',
+    '一般皮膚疾病 / 過敏'
+  ],
+  '婦產科 / 產後修復': [
+    '一般婦科 / 月經異常',
+    '產檢 / 孕期照護',
+    '不孕症 / 試管嬰兒',
+    '更年期 / 荷爾蒙療法',
+    '子宮肌瘤 / 卵巢囊腫',
+    '私密處整形 / 雷射緊實',
+    '產後骨盆底肌修復',
+    '高頻電波私密處療程',
+    '婦癌篩檢',
+    '避孕 / 性健康諮詢'
+  ],
+  '泌尿科 / 男性健康': [
+    '攝護腺肥大 / 攝護腺癌篩檢',
+    '性功能障礙 / 早洩治療',
+    '泌尿道結石',
+    '泌尿道感染',
+    '頻尿 / 尿失禁 / 膀胱過動',
+    '男性結紮',
+    '包皮 / 包莖手術',
+    '精索靜脈曲張',
+    '男性不孕症 / 生殖醫學',
+    '震波治療 / 低能量震波'
+  ],
+  '小兒科': [
+    '感冒 / 發燒 / 腸胃炎',
+    '過敏 / 氣喘 / 異位性皮膚炎',
+    '預防接種',
+    '生長發育評估',
+    '兒童健檢 / 發展遲緩',
+    '青少年保健 / 性早熟',
+    '新生兒照護 / 黃疸',
+    '兒童心智 / 過動注意力',
+    '兒童營養諮詢'
+  ],
+  '耳鼻喉科': [
+    '過敏性鼻炎 / 鼻竇炎',
+    '中耳炎 / 聽力問題',
+    '喉嚨痛 / 扁桃腺',
+    '睡眠呼吸中止症',
+    '聲音沙啞 / 聲帶問題',
+    '頭頸部腫瘤',
+    '鼻整形 / 鼻中隔手術',
+    '頭暈 / 平衡問題',
+    '兒童耳鼻喉常見問題'
+  ],
+  '一般外科 / 乳房外科': [
+    '乳房腫瘤評估 / 切片',
+    '乳癌手術 / 乳房重建',
+    '良性乳房疾病（纖維腺瘤、囊腫）',
+    '乳癌篩檢（超音波 / 攝影）',
+    '乳房整形 / 美容手術',
+    '甲狀腺結節 / 手術',
+    '疝氣手術',
+    '一般外科手術',
+    '靜脈曲張 / 微創處理'
+  ],
+  '直腸外科 / 腸胃科': [
+    '痔瘡治療 / 微創手術',
+    '大腸鏡 / 胃鏡檢查',
+    '大腸瘜肉切除',
+    '大腸癌篩檢 / 手術',
+    '肛裂 / 肛門廔管',
+    '便秘 / 腹瀉問題',
+    '腸躁症',
+    '肝膽腸胃疾病',
+    '消化不良 / 胃食道逆流'
+  ],
+  '內科系（家醫、內科）': [
+    '慢性病管理（糖尿病 / 高血壓）',
+    '高血脂 / 三高管理',
+    '健康檢查 / 健檢解讀',
+    '預防醫學 / 疫苗接種',
+    '感冒 / 一般內科',
+    '心血管疾病',
+    '甲狀腺疾病',
+    '失眠 / 自律神經',
+    '減重門診'
+  ],
+  '其他': [
+    '專科核心治療',
+    '常見疾病處置',
+    '健保門診',
+    '高階自費療程',
+    '預防保健 / 篩檢',
+    '其他特色服務'
+  ]
+};
+
+function computeTreatmentOptions(specialtyIdxs) {
+  const seen = new Set();
+  const out = [];
+  (specialtyIdxs || []).forEach(idx => {
+    const sp = SPECIALTIES[idx];
+    const list = TREATMENTS_BY_SPECIALTY[sp] || [];
+    list.forEach(t => { if (!seen.has(t)) { seen.add(t); out.push(t); } });
+  });
+  return out;
+}
+
+const BASIC_QUESTIONS = [
+  { id: 'specialty', title: '醫療專科主軸', subtitle: '可複選，最多 3 項（決定下一題的細項選單）',
+    type: 'multi', max: 3, options: SPECIALTIES },
+  { id: 'treatments', title: '主力療程或服務', subtitle: '可複選，無上限（依上題專科自動帶出）',
+    type: 'dynamic-multi' },
+  { id: 'consultStyle', title: '看診風格', subtitle: '可複選，最多 2 項', type: 'multi', max: 2,
+    options: ['朋友般的溫暖陪伴', '條理清晰的專業解說', '直接坦白的效率導向', '嚴謹學術的權威解析', '帶幽默感的輕鬆親切'] },
+  { id: 'currentLabel', title: '病人最常用什麼形容你', subtitle: '可複選，最多 2 項', type: 'multi', max: 2,
+    options: ['細心、溫柔', '專業、權威', '直爽、有效率', '親切、像朋友', '有趣、好聊'] },
+  { id: 'wantedLabel', title: '最希望被病人形容為', subtitle: '可複選，最多 2 項', type: 'multi', max: 2,
+    options: ['值得信賴的專家', '能聊天的朋友', '不推銷的好醫師', '技術一流的醫師', '有溫度的傾聽者'] },
+  { id: 'unwantedLabel', title: '最不希望被病人形容為', subtitle: '可複選，最多 2 項', type: 'multi', max: 2,
+    options: ['冷漠、距離感', '推銷感重', '高傲、看不起人', '草率、不細心', '嚴肅、有壓力'] },
+  { id: 'audience', title: '目前看診主要客群', subtitle: '可複選，最多 3 項', type: 'multi', max: 3,
+    options: ['25-35 歲年輕女性', '35-50 歲熟齡女性', '50 歲以上保養女性',
+              '25-35 歲年輕男性', '35-50 歲熟齡男性', '50 歲以上熟年男性',
+              '兒童 / 青少年（家長為決策者）', '各年齡層平均'] },
+  { id: 'goal', title: '個人品牌的核心目標', subtitle: '可複選，最多 2 項', type: 'multi', max: 2,
+    options: ['為診所導流（短期業績）', '建立專業權威（長期形象）', '開拓新分院聲量', '培養下一代醫師', '純記錄與分享'] },
+  { id: 'cameraComfort', title: '鏡頭舒適度', type: 'single',
+    options: ['完全不入鏡', '願意被拍但不自拍', '願意自拍但不錄影', '願意短影片但不直播', '完全 OK 包含直播'] },
+  { id: 'timeAvailable', title: '每週可投入時間', type: 'single',
+    options: ['1 小時以內', '1-2 小時', '2-4 小時', '4-6 小時', '6 小時以上'] }
+];
+
+// 性格量表 15 題：5 個面向 × 3 題
+const PERSONALITY_SCALES = [
+  // 醫學嚴謹度
+  { id: 'p1', left: '學術精準派', right: '生活轉譯派', tag: '醫學嚴謹', hint: '溝通病情時偏向使用學術原文與精準術語 vs 用生活比喻把專業翻譯成白話' },
+  { id: 'p2', left: '數據實證導向', right: '經驗判斷導向', tag: '醫學嚴謹', hint: '醫療決策依據：以臨床研究與統計數據為主 vs 以多年累積的臨床經驗與直覺為主' },
+  { id: 'p3', left: '標準化 SOP 派', right: '個別客製化派', tag: '醫學嚴謹', hint: '治療流程哲學：依標準流程處理 vs 每個病人都重新設計療程' },
+  // 看診風格
+  { id: 'p4', left: '講師權威感', right: '朋友陪伴感', tag: '看診風格', hint: '醫病關係定位：站高位的專家姿態 vs 平行陪伴的朋友姿態' },
+  { id: 'p5', left: '解決問題優先', right: '建立關係優先', tag: '看診風格', hint: '看診邏輯：把症狀處理掉是首要任務 vs 先理解病人再決定治療方向' },
+  { id: 'p6', left: '主動建議方案', right: '提供選項由病人決定', tag: '看診風格', hint: '決策模式：直接告訴病人怎麼做 vs 攤開選項陪病人選' },
+  // 手術 / 治療風格
+  { id: 'p7', left: '保守治療派', right: '積極治療派', tag: '手術風格', hint: '介入強度傾向：能不開刀就不開刀、最小介入 vs 看到問題就積極處理、做到位' },
+  { id: 'p8', left: '細節完美派', right: '大方向實用派', tag: '手術風格', hint: '操作精細度：每個細節都要極致 vs 抓大方向、不糾結末節' },
+  { id: 'p9', left: '技術精準導向', right: '美感整體導向', tag: '手術風格', hint: '結果偏好：以醫學技術指標為標準 vs 以整體美感／病人感受為標準' },
+  // 個人特質
+  { id: 'p10', left: '高冷距離感', right: '熱情親近感', tag: '個人特質', hint: '個人氣場：第一印象偏冷靜疏離 vs 偏溫暖貼近' },
+  { id: 'p11', left: '自嘲幽默感', right: '正經穩重感', tag: '個人特質', hint: '幽默風格：愛開自己玩笑、輕鬆 vs 正式得體、不太開玩笑' },
+  { id: 'p12', left: '內斂含蓄', right: '外放表達', tag: '個人特質', hint: '表達方式：話少、低調 vs 表情豐富、感染力強' },
+  // 形象特質
+  { id: 'p13', left: '直接坦白型', right: '委婉鋪陳型', tag: '形象特質', hint: '溝通方式：話直接講不繞 vs 鋪陳脈絡再切入重點' },
+  { id: 'p14', left: '重視療效成果', right: '重視就醫體驗', tag: '形象特質', hint: '服務哲學：能解決病灶最重要 vs 過程舒適與感受同等重要' },
+  { id: 'p15', left: '高端精緻品味', right: '日常親民風格', tag: '形象特質', hint: '視覺氣質：精品質感、講究品味 vs 接地氣日常感、容易親近' }
+];
+
+const BOUNDARY_QUESTIONS = [
+  { id: 'b1', title: '哪些個人資訊不能公開', subtitle: '可複選', type: 'multi',
+    options: ['配偶 / 伴侶', '子女', '父母 / 家人', '確切年齡', '完整學經歷', '居住地 / 行蹤', '宗教信仰', '政治立場', '個人健康狀況', '寵物', '都可以分享'] },
+  { id: 'b2', title: '不會碰的議題類型', subtitle: '可複選', type: 'multi',
+    options: ['政治 / 選舉', '性議題', '競品 / 同業比較', '病人糾紛 / 客訴', '健保 / 法規爭議', '個人感情', '宗教', '兩岸 / 國際議題', '都可以談'] },
+  { id: 'b3', title: '不能用的詞彙風格', subtitle: '可複選', type: 'multi',
+    options: ['過度誇張用詞（最、第一、保證）', '性暗示 / 葷段子', '髒話 / 粗話', '流行迷因 / 網路用語', '諷刺挖苦同業', '過度自嘲', '業配感重的字眼', '都可以用'] },
+  { id: 'b4', title: '願意分享的私人面向', subtitle: '可複選', type: 'multi',
+    options: ['完全公私分離（純專業）', '偶爾分享生活側拍', '分享興趣嗜好', '分享部分家庭日常', '分享旅行 / 美食', '分享運動 / 健身', '願意完整分享'] },
+  { id: 'b5', title: '病人案例分享接受度', type: 'single',
+    options: ['完全不分享', '純文字描述（無照片）', '局部去識別化照片', '完整去識別化前後對比', '病人同意下完整分享'] },
+  { id: 'b6', title: '異業合作 / 業配接受度', type: 'single',
+    options: ['完全不接', '只接醫療相關產品', '接保養 / 美妝', '接生活風格類', '開放態度'] },
+  { id: 'b7', title: '負面留言處理方式', type: 'single',
+    options: ['一律刪除封鎖', '由小編禮貌回應', '由我親自回應', '視內容嚴重程度判斷', '完全不回應'] },
+  { id: 'b8', title: '內容最終審核權', type: 'single',
+    options: ['我必須親自審稿才能發', '信任團隊發完通知我', '重要稿件審稿，日常放手', '完全交給團隊', '視平台不同處理'] }
+];
+
+const EASTER_QUESTIONS = [
+  { id: 'e1', title: '三個生活興趣 / 嗜好',
+    hints: '旅行、美食、運動、閱讀、音樂、寵物、攝影、收藏、手作、園藝、品酒、追劇',
+    placeholder: '例：登山、紅酒、看舞台劇' },
+  { id: 'e2', title: '一個會讓朋友笑的職業病',
+    hints: '分析路人臉、自動診斷、聚會時掃描症狀、對細節挑剔、隨手帶筆、工作模式停不下來',
+    placeholder: '例：吃飯時會盯著隔壁桌阿姨的法令紋' },
+  { id: 'e3', title: '自己也覺得好笑的口頭禪或習慣',
+    hints: '開頭口頭禪、收尾用詞、表情習慣、手勢、思考時的小動作',
+    placeholder: '例：講重點時會不自覺把手放在臉上' },
+  { id: 'e4', title: '喜歡的醫師 / KOL 2-3 位 + 喜歡的點',
+    hints: '視覺風格、文字表達、專業度呈現、互動方式、人格立體感',
+    placeholder: '例：王彥文醫師（自然系抗老的主張一致性）、嗚咪醫師（學術 + 寵物反差感）' },
+  { id: 'e5', title: '不想變成的那種醫師 / KOL 1-2 位 + 不喜歡的點',
+    hints: '過度推銷、假面、為流量犧牲專業、嗆人、流於表面、同質化',
+    placeholder: '例：每篇都在賣療程、用震驚體標題、嗆病人' }
+];
+
+const SECTION_LABELS = ['基本資訊', '基本盤', '性格量表', '邊界紅線', '彩蛋池', '報告'];
+
+// ===== State =====
+
+const state = {
+  step: 0,
+  info: { name: '', clinic: '', title: '', credentials: '', gender: '', age: '', attendingYears: '' },
+  basic: {},
+  personality: PERSONALITY_SCALES.reduce((acc, s) => { acc[s.id] = 3; return acc; }, {}),
+  boundary: {},
+  easter: {}
+};
+
+// ===== Utilities =====
+
+function escapeHtml(s) {
+  if (s === undefined || s === null) return '';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getQ(qList, id) { return qList.find(x => x.id === id); }
+
+function multiToText(q, val) {
+  if (!val || val.length === 0) return '無';
+  if (q && q.options) return val.map(i => q.options[i]).filter(Boolean).join('、');
+  return val.filter(Boolean).join('、');
+}
+
+function singleToText(q, val) {
+  if (val === undefined || val === null) return '〔未填〕';
+  if (q && q.options) return q.options[val] || '〔未填〕';
+  return String(val);
+}
+
+const CHECKMARK_SVG = '<svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2 L5 8.7 L9.5 3.5" stroke="#1A1614" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+// ===== Report Logic =====
+
+function getKeywords(personality) {
+  const scored = PERSONALITY_SCALES.map(scale => {
+    const score = personality[scale.id] != null ? personality[scale.id] : 3;
+    return Object.assign({}, scale, { score: score, distance: Math.abs(score - 3) });
+  });
+  scored.sort((a, b) => b.distance - a.distance);
+  const top = scored.slice(0, 6).filter(s => s.distance >= 1);
+  return top.map(s => s.score < 3 ? s.left : s.right);
+}
+
+function calculateRatios(personality) {
+  let r = { professional: 25, observation: 25, humor: 20, selfExp: 10, advocacy: 10, treatments: 10 };
+  const p = personality;
+  const v = id => p[id] != null ? p[id] : 3;
+
+  // p1 學術精準派 (low) → professional up；生活轉譯派 (high) → humor / observation up
+  if (v('p1') <= 2) { r.professional += 5; r.humor -= 3; }
+  if (v('p1') >= 4) { r.observation += 5; r.humor += 3; r.professional -= 5; }
+
+  // p2 數據實證 (low) → professional up；經驗判斷 (high) → observation up
+  if (v('p2') <= 2) { r.professional += 8; r.observation -= 3; r.humor -= 3; }
+  if (v('p2') >= 4) { r.observation += 8; r.advocacy += 3; r.professional -= 5; }
+
+  // p3 SOP (low) → treatments up；客製 (high) → advocacy up
+  if (v('p3') <= 2) { r.treatments += 5; r.advocacy -= 3; }
+  if (v('p3') >= 4) { r.advocacy += 5; r.observation += 3; r.treatments -= 5; }
+
+  // p4 講師權威 (low) → professional up；陪伴朋友 (high) → observation / humor up
+  if (v('p4') <= 2) { r.professional += 8; r.humor -= 5; r.observation -= 3; }
+  if (v('p4') >= 4) { r.observation += 8; r.humor += 5; r.professional -= 5; }
+
+  // p5 解決問題 (low) → treatments up；建立關係 (high) → observation up
+  if (v('p5') <= 2) { r.treatments += 5; r.professional += 3; r.observation -= 5; r.humor -= 3; }
+  if (v('p5') >= 4) { r.observation += 5; r.humor += 3; r.treatments -= 5; }
+
+  // p6 主動建議 (low) → advocacy / treatments up；提供選項 (high) → observation up
+  if (v('p6') <= 2) { r.advocacy += 5; r.treatments += 3; r.observation -= 3; }
+  if (v('p6') >= 4) { r.observation += 5; r.advocacy -= 3; }
+
+  // p7 保守 (low) → observation up；積極 (high) → treatments up
+  if (v('p7') <= 2) { r.observation += 5; r.advocacy += 3; r.treatments -= 5; }
+  if (v('p7') >= 4) { r.treatments += 5; r.selfExp += 3; r.observation -= 3; }
+
+  // p8 細節完美 (low) → professional up；大方向 (high) → humor up
+  if (v('p8') <= 2) { r.professional += 5; r.humor -= 3; }
+  if (v('p8') >= 4) { r.humor += 5; r.professional -= 5; }
+
+  // p9 技術精準 (low) → professional / treatments up；美感整體 (high) → selfExp / advocacy up
+  if (v('p9') <= 2) { r.professional += 5; r.treatments += 3; r.selfExp -= 3; }
+  if (v('p9') >= 4) { r.selfExp += 5; r.advocacy += 3; r.treatments -= 3; }
+
+  // p10 高冷 (low) → professional up；熱情 (high) → observation / humor up
+  if (v('p10') <= 2) { r.professional += 5; r.humor -= 5; }
+  if (v('p10') >= 4) { r.observation += 5; r.humor += 3; r.professional -= 3; }
+
+  // p11 自嘲幽默 (low) → humor up；穩重 (high) → professional up
+  if (v('p11') <= 2) { r.humor += 8; r.advocacy -= 3; r.selfExp -= 3; }
+  if (v('p11') >= 4) { r.humor -= 8; r.professional += 5; r.observation += 3; }
+
+  // p12 內斂 (low) → professional up；外放 (high) → humor / selfExp up
+  if (v('p12') <= 2) { r.professional += 5; r.humor -= 3; }
+  if (v('p12') >= 4) { r.humor += 5; r.selfExp += 3; }
+
+  // p13 直接坦白 (low) → advocacy up；委婉 (high) → observation up
+  if (v('p13') <= 2) { r.advocacy += 8; r.observation += 3; r.humor -= 3; r.treatments -= 3; }
+  if (v('p13') >= 4) { r.observation += 5; r.advocacy -= 3; }
+
+  // p14 重視療效 (low) → treatments up；重視體驗 (high) → observation up
+  if (v('p14') <= 2) { r.treatments += 5; r.professional += 3; r.observation -= 3; }
+  if (v('p14') >= 4) { r.observation += 5; r.humor += 3; r.treatments -= 3; }
+
+  // p15 高端精緻 (low) → selfExp up；日常親民 (high) → humor up
+  if (v('p15') <= 2) { r.selfExp += 5; r.advocacy += 3; r.humor -= 3; }
+  if (v('p15') >= 4) { r.humor += 5; r.observation += 3; r.selfExp -= 3; }
+
+  // Clamp negatives, normalize to 100
+  Object.keys(r).forEach(k => { if (r[k] < 0) r[k] = 0; });
+  let total = 0;
+  Object.keys(r).forEach(k => { total += r[k]; });
+  if (total === 0) {
+    // all zero – fallback uniform
+    return { professional: 17, observation: 17, humor: 17, selfExp: 17, advocacy: 16, treatments: 16 };
+  }
+  Object.keys(r).forEach(k => { r[k] = Math.round(r[k] / total * 100); });
+  let sum = 0; Object.keys(r).forEach(k => { sum += r[k]; });
+  if (sum !== 100) {
+    let maxKey = Object.keys(r)[0];
+    Object.keys(r).forEach(k => { if (r[k] > r[maxKey]) maxKey = k; });
+    r[maxKey] += (100 - sum);
+  }
+  return r;
+}
+
+function inferTone(personality) {
+  const p = personality;
+  const v = id => p[id] != null ? p[id] : 3;
+  const tones = [];
+  if (v('p10') >= 4) tones.push('溫和親近');
+  if (v('p10') <= 2) tones.push('冷靜專業');
+  if (v('p11') <= 2) tones.push('輕鬆幽默');
+  if (v('p11') >= 4) tones.push('沉穩內斂');
+  if (v('p1') <= 2) tones.push('學術嚴謹');
+  if (v('p1') >= 4) tones.push('生活感強');
+  if (v('p15') <= 2) tones.push('精緻質感');
+  if (v('p15') >= 4) tones.push('日常親民');
+  if (v('p13') <= 2) tones.push('坦白直接');
+  if (v('p4') <= 2) tones.push('權威穩定');
+  return tones.length ? tones : ['平衡中性'];
+}
+
+function generateContentPillars(basic) {
+  const sps = (basic.specialty || []).map(i => SPECIALTIES[i]).filter(Boolean);
+  const primary = sps[0];
+  const map = {
+    '醫美 / 整形外科': ['部位專業（眼周/中臉/下臉）', '機台/針劑科普', '醫師療程主張', '診間真實對話'],
+    '皮膚科 / 美容皮膚': ['日常保養知識', '皮膚問題破解', '醫師自體驗', '案例討論'],
+    '婦產科 / 產後修復': ['女性身體知識', '產前產後實話', '荷爾蒙與抗老', '診間溫度'],
+    '泌尿科 / 男性健康': ['男性健康衛教', '常見迷思破解', '夫妻共讀內容', '醫師專業視角'],
+    '小兒科': ['育兒衛教', '常見疾病處理', '父母焦慮陪伴', '醫師日常觀察'],
+    '耳鼻喉科': ['過敏與感染衛教', '兒童常見問題', '生活習慣建議', '診間故事'],
+    '一般外科 / 乳房外科': ['婦女健康知識', '篩檢與預防', '術前術後說明', '醫師個人故事'],
+    '直腸外科 / 腸胃科': ['腸道健康衛教', '常見症狀解析', '生活習慣建議', '診間真實故事'],
+    '內科系（家醫、內科）': ['預防醫學', '生活型態調整', '常見慢性病解析', '醫師個人觀點'],
+    '其他': ['專業知識分享', '診間觀察', '醫師個人主張', '日常生活感']
+  };
+  return map[primary] || map['其他'];
+}
+
+function generateBio(data) {
+  const info = data.info, basic = data.basic, personality = data.personality, easter = data.easter;
+  const sps = (basic.specialty || []).map(i => SPECIALTIES[i]).filter(Boolean);
+  const primarySp = sps[0] || '';
+  const treatments = (basic.treatments || []).slice(0, 2).join(' · ');
+  const v = id => personality[id] != null ? personality[id] : 3;
+  const isHumorous = v('p11') <= 2;
+  const isAuthority = v('p4') <= 2;
+  const isPersonal = v('p15') >= 4 || v('p10') >= 4;
+  const tic = (easter.e3 || '').split(/[，,。\n]/)[0].trim();
+
+  let igBio = (info.name || '〔姓名〕') + '・' + (info.title || '〔職稱〕') + '\n';
+  if (isAuthority && info.credentials) igBio += info.credentials + '\n';
+  if (treatments) igBio += treatments + '\n';
+  igBio += (info.clinic || '〔診所名稱〕');
+  if (isPersonal && tic) igBio += '\n🥄 ' + tic;
+
+  let threadsBio = (info.name || '〔姓名〕') + ' · ' + primarySp + '醫師\n';
+  if (info.credentials) threadsBio += info.credentials + '\n';
+  if (isHumorous) threadsBio += '診間日常 / 衛教 / 偶爾翻譯年糕';
+  else threadsBio += '專業衛教 / 診間觀察';
+
+  return { ig: igBio, threads: threadsBio };
+}
+
+function generateMonthThemes(basic) {
+  const sps = (basic.specialty || []).map(i => SPECIALTIES[i]).filter(Boolean);
+  const primary = sps[0];
+  const map = {
+    '醫美 / 整形外科': ['W1：眼下三角區（淚溝/眼袋/黑眼圈）', 'W2：中臉與法令紋的真相', 'W3：電波 vs 音波選擇邏輯', 'W4：醫師的療程選擇主張'],
+    '皮膚科 / 美容皮膚': ['W1：肌膚老化的真相', 'W2：保養品迷思破解', 'W3：醫美機台分層解析', 'W4：醫師自己的保養清單'],
+    '婦產科 / 產後修復': ['W1：產後身體變化', 'W2：女性荷爾蒙週期', 'W3：產後修復的科學', 'W4：醫師對女性的建議'],
+    '泌尿科 / 男性健康': ['W1：男性常見泌尿問題', 'W2：性功能健康衛教', 'W3：男性健康自我檢查', 'W4：夫妻共同照護觀念'],
+    '小兒科': ['W1：嬰幼兒常見疾病', 'W2：發燒與感冒處理', 'W3：疫苗與預防接種', 'W4：父母焦慮陪伴'],
+    '耳鼻喉科': ['W1：過敏性鼻炎', 'W2：兒童中耳炎', 'W3：喉嚨痛分類', 'W4：日常保養建議'],
+    '一般外科 / 乳房外科': ['W1：乳房健康自我檢查', 'W2：乳癌篩檢知識', 'W3：常見乳房問題', 'W4：醫師對女性的建議'],
+    '直腸外科 / 腸胃科': ['W1：常見腸胃症狀', 'W2：痔瘡與大腸保健', 'W3：篩檢的重要性', 'W4：飲食生活建議'],
+    '內科系（家醫、內科）': ['W1：常見慢性病', 'W2：預防醫學', 'W3：健檢報告解讀', 'W4：生活型態建議'],
+    '其他': ['W1：專科核心問題', 'W2：常見迷思破解', 'W3：醫師日常觀察', 'W4：個人主張與建議']
+  };
+  return map[primary] || map['其他'];
+}
+
+function generateHtmlReport(data) {
+  const info = data.info, basic = data.basic, personality = data.personality, boundary = data.boundary, easter = data.easter;
+  const sps = (basic.specialty || []).map(i => SPECIALTIES[i]).filter(Boolean);
+
+  const keywords = getKeywords(personality);
+  const ratios = calculateRatios(personality);
+  const tones = inferTone(personality);
+  const pillars = generateContentPillars(basic);
+  const bio = generateBio(data);
+  const themes = generateMonthThemes(basic);
+  const date = new Date().toLocaleDateString('zh-TW', { year: 'numeric', month: 'long', day: 'numeric' });
+  const dateISO = new Date().toISOString().slice(0, 10);
+
+  const ratioLabels = {
+    professional: '專業權威',
+    observation: '診間觀察',
+    humor: '生活幽默',
+    selfExp: '真實自體驗',
+    advocacy: '醫師主張',
+    treatments: '療程/機台介紹'
+  };
+  const ratioDesc = {
+    professional: '解剖知識、機台原理、衛教科普',
+    observation: '跟病人的真實互動、看診洞察',
+    humor: '職業病、生活小場景',
+    selfExp: '醫師自己做過什麼療程',
+    advocacy: '美學主張、原則、不做什麼',
+    treatments: '機台 / 針劑 / 服務介紹'
+  };
+
+  // 性格量表分組
+  const groupTags = ['醫學嚴謹', '看診風格', '手術風格', '個人特質', '形象特質'];
+  const personalityRowsByGroup = groupTags.map(tag => {
+    const rows = PERSONALITY_SCALES.filter(s => s.tag === tag).map(scale => {
+      const v = personality[scale.id] != null ? personality[scale.id] : 3;
+      let dots = '';
+      for (let n = 1; n <= 5; n++) {
+        dots += '<span class="dot' + (n === v ? ' on' : '') + '"></span>';
+      }
+      return '<tr>'
+        + '<td class="left ' + (v < 3 ? 'strong' : '') + '">' + escapeHtml(scale.left) + '</td>'
+        + '<td class="dots">' + dots + '</td>'
+        + '<td class="right ' + (v > 3 ? 'strong' : '') + '">' + escapeHtml(scale.right) + '</td>'
+        + '</tr>';
+    }).join('');
+    return '<tr class="group-row"><td colspan="3" class="group-tag">' + escapeHtml(tag) + '</td></tr>' + rows;
+  }).join('');
+
+  let ratiosRows = '';
+  Object.keys(ratios).forEach(k => {
+    ratiosRows += '<tr><td>' + ratioLabels[k] + '</td><td class="num">' + ratios[k] + '%</td><td class="desc">' + ratioDesc[k] + '</td></tr>';
+  });
+
+  const html = '<!DOCTYPE html>'
++ '<html lang="zh-TW"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">'
++ '<title>' + escapeHtml(info.name || '醫師') + '・個人品牌定位報告</title>'
++ '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
++ '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@500;600;700&display=swap" rel="stylesheet">'
++ '<style>'
++ ':root{--bg:#F5F0E8;--paper:#FBF8F3;--ink:#1A1614;--ink-soft:#6B635C;--ink-faint:#8A7F73;--line:#D4CCC0;--line-soft:#E5DDD0;--accent:#B85C38;--serif:"Noto Serif TC",serif;--display:"Fraunces",serif;--sans:"Noto Sans TC",sans-serif;}'
++ '*{box-sizing:border-box;}body{margin:0;background:var(--bg);font-family:var(--sans);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased;}'
++ '.wrap{max-width:820px;margin:0 auto;background:var(--paper);padding:56px 56px 80px;border:1px solid var(--line);}'
++ '.eyebrow{font-family:var(--display);font-size:11px;letter-spacing:0.3em;color:var(--accent);text-transform:uppercase;margin-bottom:18px;}'
++ 'h1{font-family:var(--serif);font-size:32px;font-weight:600;margin:0 0 6px;letter-spacing:0.02em;line-height:1.3;}'
++ '.meta{display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;margin:24px 0 12px;font-size:13px;color:var(--ink-soft);}'
++ '.meta b{color:var(--ink);font-weight:500;margin-right:8px;}'
++ '.divider{height:1px;background:var(--line);margin:36px 0;}'
++ 'h2{font-family:var(--serif);font-size:20px;font-weight:600;margin:0 0 18px;letter-spacing:0.03em;display:flex;align-items:baseline;gap:12px;}'
++ 'h2 .num{font-family:var(--display);font-size:13px;color:var(--accent);letter-spacing:0.2em;font-weight:500;}'
++ 'h3{font-family:var(--serif);font-size:15px;font-weight:600;margin:18px 0 8px;}'
++ 'ul{padding-left:20px;margin:8px 0;}ul li{margin:4px 0;font-size:14px;}'
++ '.keywords{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px;}'
++ '.keyword{padding:6px 14px;border:1px solid var(--ink);background:var(--paper);font-size:13px;font-family:var(--serif);font-weight:500;letter-spacing:0.04em;}'
++ '.core{background:#fff;border:1px solid var(--line);padding:20px 24px;margin:8px 0 4px;}'
++ '.core .row{display:grid;grid-template-columns:120px 1fr;gap:10px 18px;padding:6px 0;font-size:14px;border-bottom:1px dashed var(--line-soft);}'
++ '.core .row:last-child{border-bottom:0;}'
++ '.core .row b{color:var(--ink-faint);font-weight:500;font-size:12px;letter-spacing:0.05em;}'
++ 'pre{background:#fff;border:1px solid var(--line);padding:16px 18px;font-family:var(--sans);font-size:13px;line-height:1.7;margin:6px 0 16px;white-space:pre-wrap;word-break:break-word;}'
++ 'table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px;background:#fff;}'
++ 'th,td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:middle;}'
++ 'th{background:var(--paper);font-weight:600;font-family:var(--serif);font-size:13px;color:var(--ink);}'
++ 'td.num{font-family:var(--display);font-weight:600;text-align:right;width:70px;}'
++ 'td.desc{color:var(--ink-soft);font-size:12px;}'
++ 'table.scale td.left,table.scale td.right{width:36%;font-size:13px;color:var(--ink-faint);}'
++ 'table.scale td.left{text-align:right;}'
++ 'table.scale td.left.strong,table.scale td.right.strong{color:var(--ink);font-weight:600;}'
++ 'table.scale td.dots{width:28%;padding:8px 12px;text-align:center;}'
++ 'table.scale .dot{display:inline-block;width:9px;height:9px;border-radius:50%;border:1.5px solid var(--line);margin:0 3px;vertical-align:middle;background:transparent;}'
++ 'table.scale .dot.on{background:var(--accent);border-color:var(--accent);}'
++ 'table.scale .group-row td{background:var(--paper);padding:8px 12px;border-bottom:2px solid var(--accent);}'
++ 'table.scale .group-tag{font-family:var(--display);font-size:11px;letter-spacing:0.2em;color:var(--accent);text-transform:uppercase;font-weight:500;}'
++ '.red-line{background:#fff;border-left:3px solid var(--accent);padding:14px 18px;margin:8px 0;font-size:13.5px;}'
++ '.red-line b{display:block;font-family:var(--serif);color:var(--ink);margin-bottom:4px;font-size:13px;}'
++ '.red-line .v{color:var(--ink-soft);}'
++ '.easter-block{background:#fff;border:1px solid var(--line);padding:14px 18px;margin:8px 0;font-size:13.5px;color:var(--ink-soft);white-space:pre-wrap;}'
++ '.easter-block b{display:block;color:var(--ink);font-family:var(--serif);margin-bottom:4px;font-size:13px;}'
++ '.recos{counter-reset:r;list-style:none;padding:0;}'
++ '.recos li{counter-increment:r;padding:12px 14px 12px 48px;background:#fff;border:1px solid var(--line);margin-bottom:8px;position:relative;font-size:13.5px;}'
++ '.recos li::before{content:counter(r,decimal-leading-zero);position:absolute;left:14px;top:12px;font-family:var(--display);color:var(--accent);font-weight:600;font-size:13px;letter-spacing:0.05em;}'
++ '.return-block{margin-top:48px;padding:24px;background:var(--paper);border:1px dashed var(--line);text-align:center;}'
++ '.return-block .label{font-family:var(--display);font-size:11px;letter-spacing:0.25em;color:var(--accent);text-transform:uppercase;margin-bottom:12px;}'
++ '.return-block input{margin-top:10px;width:100%;border:1px solid var(--line);background:#fff;padding:10px 12px;font-family:var(--sans);font-size:13px;color:var(--ink);}'
++ '.return-block .hint{font-size:11.5px;color:var(--ink-faint);margin-top:10px;line-height:1.6;}'
++ '.foot{margin-top:56px;padding-top:24px;border-top:1px solid var(--line);text-align:center;font-size:11px;color:var(--ink-faint);letter-spacing:0.1em;font-family:var(--display);text-transform:uppercase;}'
++ '@media print{body{background:#fff;}.wrap{border:0;padding:24px;}.return-block{page-break-inside:avoid;}}'
++ '@media (max-width:640px){.wrap{padding:32px 20px;}.meta{grid-template-columns:1fr;}h1{font-size:26px;}}'
++ '</style></head><body>'
++ '<div class="wrap">'
++ '<div class="eyebrow">Doctor Persona Report</div>'
++ '<h1>' + escapeHtml(info.name || '〔未填〕') + '・個人品牌定位報告</h1>'
++ '<div class="meta">'
++ '<div><b>診所</b>' + escapeHtml(info.clinic || '〔未填〕') + '</div>'
++ '<div><b>職稱</b>' + escapeHtml(info.title || '〔未填〕') + '</div>'
++ '<div><b>性別 / 年紀</b>' + escapeHtml((info.gender || '〔未填〕') + ' / ' + (info.age || '〔未填〕')) + '</div>'
++ '<div><b>主治醫師年資</b>' + escapeHtml(info.attendingYears || '〔未填〕') + '</div>'
++ '<div><b>權威頭銜</b>' + escapeHtml(info.credentials || '〔未填〕') + '</div>'
++ '<div><b>產出日期</b>' + escapeHtml(date) + '</div>'
++ '</div>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 01</span>人設關鍵字</h2>'
++ '<div class="keywords">'
++ (keywords.length ? keywords.map(k => '<span class="keyword">' + escapeHtml(k) + '</span>').join('') : '<div style="font-size:13px;color:var(--ink-faint);">性格量表大多落在中間，建議再次填寫並做出較明確的選擇</div>')
++ '</div>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 02</span>核心定位</h2>'
++ '<div class="core">'
++ '<div class="row"><b>主軸專科</b><div>' + escapeHtml(sps.length ? sps.join('、') : '〔未填〕') + '</div></div>'
++ '<div class="row"><b>主力療程</b><div>' + escapeHtml((basic.treatments || []).join('、') || '〔未填〕') + '</div></div>'
++ '<div class="row"><b>看診風格</b><div>' + escapeHtml(multiToText(getQ(BASIC_QUESTIONS, 'consultStyle'), basic.consultStyle)) + '</div></div>'
++ '<div class="row"><b>理想標籤</b><div>' + escapeHtml(multiToText(getQ(BASIC_QUESTIONS, 'wantedLabel'), basic.wantedLabel)) + '</div></div>'
++ '<div class="row"><b>客群</b><div>' + escapeHtml(multiToText(getQ(BASIC_QUESTIONS, 'audience'), basic.audience)) + '</div></div>'
++ '<div class="row"><b>整體調性</b><div>' + escapeHtml(tones.join(' + ')) + '</div></div>'
++ '<div class="row"><b>品牌目標</b><div>' + escapeHtml(multiToText(getQ(BASIC_QUESTIONS, 'goal'), basic.goal)) + '</div></div>'
++ '</div>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 03</span>Bio 草稿建議</h2>'
++ '<h3>IG Bio</h3><pre>' + escapeHtml(bio.ig) + '</pre>'
++ '<h3>Threads Bio</h3><pre>' + escapeHtml(bio.threads) + '</pre>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 04</span>性格量表結果</h2>'
++ '<table class="scale"><thead><tr><th style="text-align:right">偏左</th><th style="text-align:center">傾向</th><th>偏右</th></tr></thead><tbody>' + personalityRowsByGroup + '</tbody></table>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 05</span>內容比例配置</h2>'
++ '<table><thead><tr><th>內容類型</th><th class="num">比例</th><th>說明</th></tr></thead><tbody>' + ratiosRows + '</tbody></table>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 06</span>內容支柱（4 個方向）</h2>'
++ '<ul>' + pillars.map(p => '<li>' + escapeHtml(p) + '</li>').join('') + '</ul>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 07</span>第一個月主題建議</h2>'
++ '<ul>' + themes.map(t => '<li>' + escapeHtml(t) + '</li>').join('') + '</ul>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 08</span>紅線清單</h2>'
++ '<div class="red-line"><b>不能公開的個人資訊</b><div class="v">' + escapeHtml(multiToText(getQ(BOUNDARY_QUESTIONS, 'b1'), boundary.b1)) + '</div></div>'
++ '<div class="red-line"><b>不會碰的議題類型</b><div class="v">' + escapeHtml(multiToText(getQ(BOUNDARY_QUESTIONS, 'b2'), boundary.b2)) + '</div></div>'
++ '<div class="red-line"><b>不能用的詞彙風格</b><div class="v">' + escapeHtml(multiToText(getQ(BOUNDARY_QUESTIONS, 'b3'), boundary.b3)) + '</div></div>'
++ '<div class="red-line"><b>願意分享的私人面向</b><div class="v">' + escapeHtml(multiToText(getQ(BOUNDARY_QUESTIONS, 'b4'), boundary.b4)) + '</div></div>'
++ '<div class="red-line"><b>病人案例分享接受度</b><div class="v">' + escapeHtml(singleToText(getQ(BOUNDARY_QUESTIONS, 'b5'), boundary.b5)) + '</div></div>'
++ '<div class="red-line"><b>業配 / 異業合作</b><div class="v">' + escapeHtml(singleToText(getQ(BOUNDARY_QUESTIONS, 'b6'), boundary.b6)) + '</div></div>'
++ '<div class="red-line"><b>負面留言處理</b><div class="v">' + escapeHtml(singleToText(getQ(BOUNDARY_QUESTIONS, 'b7'), boundary.b7)) + '</div></div>'
++ '<div class="red-line"><b>內容審核權</b><div class="v">' + escapeHtml(singleToText(getQ(BOUNDARY_QUESTIONS, 'b8'), boundary.b8)) + '</div></div>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 09</span>人格立體度素材池</h2>'
++ '<div class="easter-block"><b>生活興趣 / 嗜好</b>' + escapeHtml(easter.e1 || '〔未填〕') + '</div>'
++ '<div class="easter-block"><b>職業病</b>' + escapeHtml(easter.e2 || '〔未填〕') + '</div>'
++ '<div class="easter-block"><b>口頭禪 / 小習慣</b>' + escapeHtml(easter.e3 || '〔未填〕') + '</div>'
++ '<div class="easter-block"><b>喜歡的對標 KOL</b>' + escapeHtml(easter.e4 || '〔未填〕') + '</div>'
++ '<div class="easter-block"><b>不想變成的 KOL</b>' + escapeHtml(easter.e5 || '〔未填〕') + '</div>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 10</span>執行條件</h2>'
++ '<div class="core">'
++ '<div class="row"><b>鏡頭舒適度</b><div>' + escapeHtml(singleToText(getQ(BASIC_QUESTIONS, 'cameraComfort'), basic.cameraComfort)) + '</div></div>'
++ '<div class="row"><b>每週可投入時間</b><div>' + escapeHtml(singleToText(getQ(BASIC_QUESTIONS, 'timeAvailable'), basic.timeAvailable)) + '</div></div>'
++ '</div>'
++ '<div class="divider"></div>'
++ '<h2><span class="num">SECTION 11</span>內部團隊執行建議</h2>'
++ '<ol class="recos">'
++ '<li>根據「內容比例配置」分配每週貼文類型，避免單一面向過量。</li>'
++ '<li>「紅線清單」必須做成內部 SOP，行銷團隊發稿前對照檢查。</li>'
++ '<li>「人格立體度素材池」是 Threads / IG 限動的素材庫，建議每月補充。</li>'
++ '<li>三個月後重填一次量表，比對醫師認知與實際發文是否吻合。</li>'
++ '<li>如鏡頭舒適度與時間有限，優先 Threads（純文字）+ IG 圖卡，避免短影片。</li>'
++ '</ol>'
++ '<div class="return-block">'
++ '<div class="label">Return Form</div>'
++ '<div style="font-family:var(--serif);font-size:15px;color:var(--ink);font-weight:600;">請將此份報告回傳給品牌團隊</div>'
++ '<div class="hint">請將此份 HTML 檔案存檔後，附件回傳給品牌團隊；或列印簽名後掃描回傳。<br>若有需要修改的內容，可在下方備註欄填寫意見。</div>'
++ '<input type="text" placeholder="（可選）醫師對本報告的補充或修正建議" />'
++ '<div class="hint" style="margin-top:14px;">本份報告由醫師親自填寫量表後系統自動產出。內容僅作為品牌定位內部參考，不對外公開。</div>'
++ '</div>'
++ '<div class="foot">Doctor Persona Survey · v3.0 · ' + escapeHtml(dateISO) + '</div>'
++ '</div></body></html>';
+
+  return html;
+}
+
+// ===== Render Helpers =====
+
+function renderProgress(currentSection) {
+  const total = SECTION_LABELS.length;
+  let labels = '';
+  SECTION_LABELS.forEach((label, i) => {
+    let cls = 'upcoming';
+    if (i === currentSection) cls = 'cur';
+    else if (i < currentSection) cls = 'done';
+    labels += '<span class="' + cls + '">' + label + '</span>';
+  });
+  const pct = ((currentSection + 1) / total) * 100;
+  return '<div class="progress"><div class="progress-labels">' + labels + '</div>'
+    + '<div class="progress-bar"><div style="width:' + pct + '%"></div></div></div>';
+}
+
+function renderSectionHeader(num, title, subtitle) {
+  return '<div class="section-header">'
+    + '<div class="label">SECTION ' + num + '</div>'
+    + '<h2>' + escapeHtml(title) + '</h2>'
+    + (subtitle ? '<div class="subtitle">' + escapeHtml(subtitle) + '</div>' : '')
+    + '</div>';
+}
+
+function renderNavButtons(showBack, nextLabel, disabled) {
+  const back = showBack
+    ? '<button class="btn-secondary" data-action="back">← 上一步</button>'
+    : '<div class="placeholder"></div>';
+  const next = '<button class="nav-next" data-action="next"' + (disabled ? ' disabled' : '') + '>'
+    + escapeHtml(nextLabel || '繼續') + ' →</button>';
+  return '<div class="nav-buttons">' + back + next + '</div>';
+}
+
+function renderChoiceQuestion(q, value, index, options) {
+  const opts = options || q.options || [];
+  const isSingle = q.type === 'single';
+  let html = '<div class="question" data-qid="' + escapeHtml(q.id) + '">';
+  html += '<div class="head"><span class="num">' + String(index).padStart(2, '0') + '</span>';
+  html += '<h3 class="title">' + escapeHtml(q.title) + '</h3></div>';
+  if (q.subtitle) html += '<div class="sub">' + escapeHtml(q.subtitle) + '</div>';
+  html += '<div class="options">';
+  if (opts.length === 0) {
+    html += '<div class="empty-hint">（請先回答上一題：選擇專科主軸後，這裡會自動帶出對應的療程選項）</div>';
+  } else {
+    opts.forEach((opt, i) => {
+      let selected;
+      if (q.type === 'dynamic-multi') {
+        selected = (value || []).indexOf(opt) !== -1;
+      } else if (isSingle) {
+        selected = value === i;
+      } else {
+        selected = (value || []).indexOf(i) !== -1;
+      }
+      const cls = 'opt' + (isSingle ? ' single' : '') + (selected ? ' on' : '');
+      const valueAttr = q.type === 'dynamic-multi' ? escapeHtml(opt) : i;
+      html += '<button class="' + cls + '" data-qid="' + escapeHtml(q.id) + '" data-value="' + valueAttr + '">'
+        + '<span class="mark">' + CHECKMARK_SVG + '</span>'
+        + escapeHtml(opt) + '</button>';
+    });
+  }
+  html += '</div></div>';
+  return html;
+}
+
+function renderSliderQuestion(scale, value, index) {
+  const v = value != null ? value : 3;
+  const leanCls = v < 3 ? 'lean-left' : (v > 3 ? 'lean-right' : '');
+  let html = '<div class="scale-q ' + leanCls + '" data-qid="' + escapeHtml(scale.id) + '">';
+  html += '<div class="head"><span class="num">' + String(index).padStart(2, '0') + '</span>';
+  html += '<div class="head-row">';
+  html += '<span class="left">' + escapeHtml(scale.left) + '</span>';
+  html += '<span class="tag">' + escapeHtml(scale.tag) + '</span>';
+  html += '<span class="right">' + escapeHtml(scale.right) + '</span>';
+  html += '</div></div>';
+  if (scale.hint) html += '<div class="hint">' + escapeHtml(scale.hint) + '</div>';
+  html += '<div class="scale-buttons">';
+  for (let n = 1; n <= 5; n++) {
+    html += '<button class="sb' + (v === n ? ' on' : '') + '" data-qid="' + escapeHtml(scale.id) + '" data-value="' + n + '">' + n + '</button>';
+  }
+  html += '</div></div>';
+  return html;
+}
+
+function renderEasterQuestion(q, value, index) {
+  let html = '<div class="easter-q" data-qid="' + escapeHtml(q.id) + '">';
+  html += '<div class="head"><span class="num" style="font-family:var(--display);font-size:14px;color:var(--accent);font-weight:500;">' + String(index).padStart(2, '0') + '</span>';
+  html += '<h3 style="font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);margin:0;">' + escapeHtml(q.title) + '</h3></div>';
+  html += '<div class="body"><div class="hint"><b>提示：</b>' + escapeHtml(q.hints) + '</div>';
+  html += '<textarea data-qid="' + escapeHtml(q.id) + '" rows="3" placeholder="' + escapeHtml(q.placeholder) + '">' + escapeHtml(value || '') + '</textarea>';
+  html += '</div></div>';
+  return html;
+}
+
+// ===== Step Renderers =====
+
+function renderWelcome() {
+  return '<div class="welcome">'
+    + '<div class="eyebrow">Doctor Persona Survey</div>'
+    + '<h1>醫師個人品牌<br>人設定位量表</h1>'
+    + '<p>38 題、約 12 分鐘<br>填寫完成後即時產出個人品牌定位報告<br>可下載 HTML 檔案，回傳給品牌團隊</p>'
+    + '<div class="stats">'
+    + '<div class="stat"><div class="num">10</div><div class="lbl">基本盤</div></div>'
+    + '<div class="stat"><div class="num">15</div><div class="lbl">性格量表</div></div>'
+    + '<div class="stat"><div class="num">8</div><div class="lbl">邊界紅線</div></div>'
+    + '<div class="stat"><div class="num">5</div><div class="lbl">彩蛋池</div></div>'
+    + '</div>'
+    + '<button class="btn-primary" data-action="start">開始填寫 →</button>'
+    + '</div>';
+}
+
+function renderInfoForm() {
+  const d = state.info;
+  const ready = d.name && d.clinic && d.title && d.gender && d.age && d.attendingYears;
+
+  let html = renderProgress(0) + renderSectionHeader('01', '醫師基本資訊', '這些資訊會出現在最終報告與 Bio 草稿中');
+
+  html += '<div class="field"><label class="field-label">醫師姓名 *</label>'
+    + '<input class="field-input" data-info="name" value="' + escapeHtml(d.name) + '" placeholder="例：王心怡"></div>';
+
+  html += '<div class="field"><label class="field-label">性別 *</label><div class="pill-group">';
+  ['男', '女', '其他'].forEach(g => {
+    html += '<button class="pill ' + (d.gender === g ? 'on' : '') + '" data-info-pill="gender" data-value="' + g + '">' + g + '</button>';
+  });
+  html += '</div></div>';
+
+  html += '<div class="field-row">';
+  html += '<div class="field"><label class="field-label">年紀 *</label>'
+    + '<input class="field-input" type="number" inputmode="numeric" min="20" max="80" data-info="age" value="' + escapeHtml(d.age) + '" placeholder="例：38"></div>';
+  html += '<div class="field"><label class="field-label">主治醫師年資（年）*</label>'
+    + '<input class="field-input" type="number" inputmode="numeric" min="0" max="50" data-info="attendingYears" value="' + escapeHtml(d.attendingYears) + '" placeholder="例：6"></div>';
+  html += '</div>';
+
+  html += '<div class="field"><label class="field-label">診所名稱 *</label>'
+    + '<input class="field-input" data-info="clinic" value="' + escapeHtml(d.clinic) + '" placeholder="例：妍回美學診所 南屯/竹北/北屯"></div>';
+  html += '<div class="field"><label class="field-label">職稱 *</label>'
+    + '<input class="field-input" data-info="title" value="' + escapeHtml(d.title) + '" placeholder="例：院長 / 主治醫師"></div>';
+  html += '<div class="field"><label class="field-label">權威頭銜（選填）</label>'
+    + '<input class="field-input" data-info="credentials" value="' + escapeHtml(d.credentials) + '" placeholder="例：膠原蛋白原廠講師、長庚體系訓練"></div>';
+
+  html += renderNavButtons(false, '繼續', !ready);
+  return html;
+}
+
+function renderBasicForm() {
+  let html = renderProgress(1) + renderSectionHeader('02', '基本盤（10 題）', '勾勒出你的專業樣貌與品牌目標。1-2 題為連動式：選了專科後會帶出對應療程選單。');
+
+  BASIC_QUESTIONS.forEach((q, i) => {
+    if (q.id === 'treatments') {
+      const dynamicOpts = computeTreatmentOptions(state.basic.specialty || []);
+      html += renderChoiceQuestion(q, state.basic.treatments, i + 1, dynamicOpts);
+    } else {
+      html += renderChoiceQuestion(q, state.basic[q.id], i + 1);
+    }
+  });
+
+  const allAnswered = BASIC_QUESTIONS.every(q => {
+    const v = state.basic[q.id];
+    if (q.type === 'multi' || q.type === 'dynamic-multi') return Array.isArray(v) && v.length > 0;
+    return v !== undefined && v !== null;
+  });
+
+  html += renderNavButtons(true, '繼續', !allAnswered);
+  return html;
+}
+
+function renderPersonalityForm() {
+  let html = renderProgress(2) + renderSectionHeader('03', '性格量表（15 題）',
+    '憑直覺選 1–5。1 偏左、5 偏右、3 中間。涵蓋：醫學嚴謹度、看診風格、手術風格、個人特質、形象特質。');
+
+  PERSONALITY_SCALES.forEach((scale, i) => {
+    html += renderSliderQuestion(scale, state.personality[scale.id], i + 1);
+  });
+  html += renderNavButtons(true, '繼續', false);
+  return html;
+}
+
+function renderBoundaryForm() {
+  let html = renderProgress(3) + renderSectionHeader('04', '邊界紅線（8 題）', '這些選擇會直接寫入紅線清單，內部團隊發稿前須對照');
+  BOUNDARY_QUESTIONS.forEach((q, i) => {
+    html += renderChoiceQuestion(q, state.boundary[q.id], i + 1);
+  });
+  html += renderNavButtons(true, '繼續', false);
+  return html;
+}
+
+function renderEasterForm() {
+  let html = renderProgress(4) + renderSectionHeader('05', '彩蛋池（5 題）', '這些細節是讓人設立體的關鍵。選填，但越完整越好');
+  EASTER_QUESTIONS.forEach((q, i) => {
+    html += renderEasterQuestion(q, state.easter[q.id], i + 1);
+  });
+  html += renderNavButtons(true, '產出報告', false);
+  return html;
+}
+
+function renderReportView() {
+  let html = renderProgress(5) + renderSectionHeader('06', '個人品牌定位報告', '請選擇一個方式把報告分享給品牌團隊');
+
+  // 主要：分享 / 複製 / Email （手機常用）
+  html += '<div class="action-group action-primary">';
+  html += '<div class="action-group-label">推薦方式 / 直接從手機回傳</div>';
+  if (typeof navigator !== 'undefined' && navigator.share) {
+    html += '<button class="btn-action btn-action-primary" data-action="share">'
+      + '<span class="ico">📤</span><span class="lbl">分享給團隊</span>'
+      + '<span class="hint">叫出 LINE / Messenger / Email 系統選單</span></button>';
+  }
+  html += '<button class="btn-action btn-action-primary" data-action="copy">'
+    + '<span class="ico">📋</span><span class="lbl">複製報告全文</span>'
+    + '<span class="hint">直接貼到 LINE 對話框</span></button>';
+  html += '<button class="btn-action btn-action-primary" data-action="email">'
+    + '<span class="ico">📧</span><span class="lbl">用 Email 寄給團隊</span>'
+    + '<span class="hint">開啟手機郵件 App、自動帶入內容</span></button>';
+  html += '</div>';
+
+  // 次要：完整版下載 / 列印 / 預覽 / 重填
+  html += '<div class="action-group action-secondary">';
+  html += '<div class="action-group-label">其他選項</div>';
+  html += '<div class="action-row">';
+  html += '<button class="btn-action btn-action-sec" data-action="download"><span class="ico">💾</span>下載 HTML 完整版</button>';
+  html += '<button class="btn-action btn-action-sec" data-action="print"><span class="ico">🖨️</span>列印 / 存 PDF</button>';
+  html += '<button class="btn-action btn-action-sec" data-action="preview"><span class="ico">👁️</span>預覽</button>';
+  html += '<button class="btn-action btn-action-sec" data-action="restart"><span class="ico">↺</span>重新填寫</button>';
+  html += '</div></div>';
+
+  html += '<div class="report-info">';
+  html += '<div class="head">📩 給品牌團隊的提示</div>';
+  html += escapeHtml(TEAM_HINT);
+  if (TEAM_EMAIL) html += '<br>Email：<b>' + escapeHtml(TEAM_EMAIL) + '</b>';
+  html += '</div>';
+
+  html += '<div id="preview-container"></div>';
+  return html;
+}
+
+// ===== Main render & event binding =====
+
+function render() {
+  const root = document.getElementById('app-root');
+  let html;
+  switch (state.step) {
+    case 0: html = renderWelcome(); break;
+    case 1: html = renderInfoForm(); break;
+    case 2: html = renderBasicForm(); break;
+    case 3: html = renderPersonalityForm(); break;
+    case 4: html = renderBoundaryForm(); break;
+    case 5: html = renderEasterForm(); break;
+    case 6: html = renderReportView(); break;
+    default: html = renderWelcome();
+  }
+  root.innerHTML = html;
+  bindEvents();
+}
+
+function setStep(n) {
+  state.step = n;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function bindEvents() {
+  const root = document.getElementById('app-root');
+
+  // Action buttons (data-action)
+  root.querySelectorAll('[data-action]').forEach(el => {
+    el.addEventListener('click', e => {
+      const action = el.getAttribute('data-action');
+      handleAction(action);
+    });
+  });
+
+  // Choice option buttons (data-qid + data-value)
+  root.querySelectorAll('.opt[data-qid]').forEach(el => {
+    el.addEventListener('click', e => {
+      const qid = el.getAttribute('data-qid');
+      const valAttr = el.getAttribute('data-value');
+      handleChoiceClick(qid, valAttr);
+    });
+  });
+
+  // Scale slider buttons
+  root.querySelectorAll('.sb[data-qid]').forEach(el => {
+    el.addEventListener('click', e => {
+      const qid = el.getAttribute('data-qid');
+      const val = parseInt(el.getAttribute('data-value'), 10);
+      state.personality[qid] = val;
+      // Just re-render the form
+      render();
+    });
+  });
+
+  // Info inputs (text/number)
+  root.querySelectorAll('[data-info]').forEach(el => {
+    el.addEventListener('input', e => {
+      const key = el.getAttribute('data-info');
+      state.info[key] = el.value;
+      // Re-enable/disable next button without losing focus → toggle disabled directly
+      updateInfoNextBtn();
+    });
+  });
+
+  // Info pill buttons (gender)
+  root.querySelectorAll('[data-info-pill]').forEach(el => {
+    el.addEventListener('click', e => {
+      const key = el.getAttribute('data-info-pill');
+      const val = el.getAttribute('data-value');
+      state.info[key] = val;
+      render();
+    });
+  });
+
+  // Easter textareas
+  root.querySelectorAll('textarea[data-qid]').forEach(el => {
+    el.addEventListener('input', e => {
+      const qid = el.getAttribute('data-qid');
+      state.easter[qid] = el.value;
+    });
+  });
+}
+
+function updateInfoNextBtn() {
+  const d = state.info;
+  const ready = d.name && d.clinic && d.title && d.gender && d.age && d.attendingYears;
+  const btn = document.querySelector('.nav-next[data-action="next"]');
+  if (btn) {
+    if (ready) btn.removeAttribute('disabled');
+    else btn.setAttribute('disabled', 'disabled');
+  }
+}
+
+function handleAction(action) {
+  switch (action) {
+    case 'start':
+      setStep(1); break;
+    case 'back':
+      if (state.step > 0) setStep(state.step - 1); break;
+    case 'next':
+      if (state.step < 6) setStep(state.step + 1); break;
+    case 'share':
+      shareReport(); break;
+    case 'copy':
+      copyTextReport(); break;
+    case 'email':
+      emailReport(); break;
+    case 'download':
+      downloadReport(); break;
+    case 'print':
+      openPrintWindow(); break;
+    case 'preview':
+      togglePreview(); break;
+    case 'restart':
+      reset(); break;
+  }
+}
+
+function handleChoiceClick(qid, valAttr) {
+  // 1. 看是哪個 question collection
+  let store, q;
+  if (BASIC_QUESTIONS.find(x => x.id === qid)) {
+    store = state.basic; q = BASIC_QUESTIONS.find(x => x.id === qid);
+  } else if (BOUNDARY_QUESTIONS.find(x => x.id === qid)) {
+    store = state.boundary; q = BOUNDARY_QUESTIONS.find(x => x.id === qid);
+  } else {
+    return;
+  }
+
+  if (q.type === 'single') {
+    store[qid] = parseInt(valAttr, 10);
+  } else if (q.type === 'multi') {
+    const idx = parseInt(valAttr, 10);
+    const cur = store[qid] || [];
+    const pos = cur.indexOf(idx);
+    if (pos >= 0) {
+      store[qid] = cur.filter(x => x !== idx);
+    } else {
+      if (q.max && cur.length >= q.max) return;
+      store[qid] = cur.concat([idx]);
+    }
+  } else if (q.type === 'dynamic-multi') {
+    // value is the actual string
+    const cur = store[qid] || [];
+    const pos = cur.indexOf(valAttr);
+    if (pos >= 0) {
+      store[qid] = cur.filter(x => x !== valAttr);
+    } else {
+      if (q.max && cur.length >= q.max) return;
+      store[qid] = cur.concat([valAttr]);
+    }
+  }
+
+  // 若 specialty 改變，清掉 treatments 中已不存在的選項
+  if (qid === 'specialty') {
+    const newOpts = computeTreatmentOptions(state.basic.specialty || []);
+    state.basic.treatments = (state.basic.treatments || []).filter(t => newOpts.indexOf(t) !== -1);
+  }
+
+  render();
+}
+
+function downloadReport() {
+  const html = generateHtmlReport(state);
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const safeName = (state.info.name || 'doctor').replace(/[\/\\:*?"<>|]/g, '');
+  const dateTag = new Date().toISOString().slice(0, 10);
+  a.download = safeName + '_個人品牌定位報告_' + dateTag + '.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+// 純文字版報告（適合直接貼到 LINE / Email 內文）
+function generateTextReport(data) {
+  const { info, basic, personality, boundary, easter } = data;
+  const sps = (basic.specialty || []).map(i => SPECIALTIES[i]).filter(Boolean);
+  const keywords = getKeywords(personality);
+  const ratios = calculateRatios(personality);
+  const tones = inferTone(personality);
+  const pillars = generateContentPillars(basic);
+  const themes = generateMonthThemes(basic);
+  const date = new Date().toLocaleDateString('zh-TW');
+
+  const ratioLabels = {
+    professional: '專業權威', observation: '診間觀察', humor: '生活幽默',
+    selfExp: '真實自體驗', advocacy: '醫師主張', treatments: '療程介紹'
+  };
+  const groupTags = ['醫學嚴謹', '看診風格', '手術風格', '個人特質', '形象特質'];
+
+  let t = '';
+  t += '【醫師個人品牌定位報告】\n';
+  t += '═══════════════════\n';
+  t += '醫師：' + (info.name || '〔未填〕') + '・' + (info.title || '〔未填〕') + '\n';
+  t += '診所：' + (info.clinic || '〔未填〕') + '\n';
+  t += '性別 / 年紀：' + (info.gender || '〔未填〕') + ' / ' + (info.age || '〔未填〕') + '　主治年資：' + (info.attendingYears || '〔未填〕') + ' 年\n';
+  if (info.credentials) t += '權威頭銜：' + info.credentials + '\n';
+  t += '產出日期：' + date + '\n\n';
+
+  t += '◆ 人設關鍵字\n';
+  t += (keywords.length ? keywords.join('、') : '（量表多落於中間，建議再次填寫）') + '\n\n';
+
+  t += '◆ 核心定位\n';
+  t += '主軸專科：' + (sps.length ? sps.join('、') : '〔未填〕') + '\n';
+  t += '主力療程：' + ((basic.treatments || []).join('、') || '〔未填〕') + '\n';
+  t += '看診風格：' + multiToText(getQ(BASIC_QUESTIONS, 'consultStyle'), basic.consultStyle) + '\n';
+  t += '理想標籤：' + multiToText(getQ(BASIC_QUESTIONS, 'wantedLabel'), basic.wantedLabel) + '\n';
+  t += '客群：' + multiToText(getQ(BASIC_QUESTIONS, 'audience'), basic.audience) + '\n';
+  t += '整體調性：' + tones.join(' + ') + '\n';
+  t += '品牌目標：' + multiToText(getQ(BASIC_QUESTIONS, 'goal'), basic.goal) + '\n\n';
+
+  t += '◆ 性格量表（1 偏左 / 5 偏右 / 3 中間）\n';
+  groupTags.forEach(tag => {
+    t += '〔' + tag + '〕\n';
+    PERSONALITY_SCALES.filter(s => s.tag === tag).forEach(scale => {
+      const v = personality[scale.id] != null ? personality[scale.id] : 3;
+      t += '  ' + scale.left + ' ─[' + v + ']─ ' + scale.right + '\n';
+    });
+  });
+  t += '\n';
+
+  t += '◆ 內容比例配置\n';
+  Object.keys(ratios).forEach(k => {
+    t += '  ' + ratioLabels[k] + '：' + ratios[k] + '%\n';
+  });
+  t += '\n';
+
+  t += '◆ 內容支柱（4 個方向）\n';
+  pillars.forEach((p, i) => { t += '  ' + (i + 1) + '. ' + p + '\n'; });
+  t += '\n';
+
+  t += '◆ 第一個月主題建議\n';
+  themes.forEach(th => { t += '  · ' + th + '\n'; });
+  t += '\n';
+
+  t += '◆ 紅線清單\n';
+  t += '  不能公開的個人資訊：' + multiToText(getQ(BOUNDARY_QUESTIONS, 'b1'), boundary.b1) + '\n';
+  t += '  不會碰的議題類型：' + multiToText(getQ(BOUNDARY_QUESTIONS, 'b2'), boundary.b2) + '\n';
+  t += '  不能用的詞彙風格：' + multiToText(getQ(BOUNDARY_QUESTIONS, 'b3'), boundary.b3) + '\n';
+  t += '  願意分享的私人面向：' + multiToText(getQ(BOUNDARY_QUESTIONS, 'b4'), boundary.b4) + '\n';
+  t += '  病人案例分享接受度：' + singleToText(getQ(BOUNDARY_QUESTIONS, 'b5'), boundary.b5) + '\n';
+  t += '  業配 / 異業合作：' + singleToText(getQ(BOUNDARY_QUESTIONS, 'b6'), boundary.b6) + '\n';
+  t += '  負面留言處理：' + singleToText(getQ(BOUNDARY_QUESTIONS, 'b7'), boundary.b7) + '\n';
+  t += '  內容審核權：' + singleToText(getQ(BOUNDARY_QUESTIONS, 'b8'), boundary.b8) + '\n\n';
+
+  t += '◆ 人格立體度素材池\n';
+  t += '  生活興趣：' + (easter.e1 || '〔未填〕') + '\n';
+  t += '  職業病：' + (easter.e2 || '〔未填〕') + '\n';
+  t += '  口頭禪：' + (easter.e3 || '〔未填〕') + '\n';
+  t += '  喜歡的對標：' + (easter.e4 || '〔未填〕') + '\n';
+  t += '  不想變成的：' + (easter.e5 || '〔未填〕') + '\n\n';
+
+  t += '◆ 執行條件\n';
+  t += '  鏡頭舒適度：' + singleToText(getQ(BASIC_QUESTIONS, 'cameraComfort'), basic.cameraComfort) + '\n';
+  t += '  每週可投入時間：' + singleToText(getQ(BASIC_QUESTIONS, 'timeAvailable'), basic.timeAvailable) + '\n';
+  t += '\n───────────────────\n';
+  t += '本報告由「醫師個人品牌人設量表」自動產出。';
+  return t;
+}
+
+// 點「複製報告全文」：把純文字版本複製到剪貼簿（可貼到 LINE）
+function copyTextReport() {
+  const text = generateTextReport(state);
+  const fallback = () => {
+    // 退回到 textarea + execCommand（舊版瀏覽器）
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('已複製報告全文，可直接貼到 LINE / Email'); }
+    catch (e) { showToast('複製失敗，請手動選取下方文字'); showTextFallback(text); }
+    document.body.removeChild(ta);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text)
+      .then(() => showToast('已複製報告全文，可直接貼到 LINE / Email'))
+      .catch(fallback);
+  } else {
+    fallback();
+  }
+}
+
+// 點「Email 寄給團隊」：開啟手機郵件 app，自動帶入主旨與內文
+function emailReport() {
+  const text = generateTextReport(state);
+  const subject = (state.info.name || '醫師') + ' - 個人品牌定位報告';
+  const body = text;
+  // mailto: 對長度有限制，多數瀏覽器約 2000 字以內較穩定。內文若過長則改貼到剪貼簿並用提示。
+  const encodedBody = encodeURIComponent(body);
+  if (encodedBody.length > 1900) {
+    // 內文太長，先複製到剪貼簿，再開啟空白郵件
+    copyTextReport();
+    setTimeout(() => {
+      const mailto = 'mailto:' + encodeURIComponent(TEAM_EMAIL || '')
+        + '?subject=' + encodeURIComponent(subject)
+        + '&body=' + encodeURIComponent('（報告全文已複製到剪貼簿，請按貼上）');
+      window.location.href = mailto;
+    }, 400);
+  } else {
+    const mailto = 'mailto:' + encodeURIComponent(TEAM_EMAIL || '')
+      + '?subject=' + encodeURIComponent(subject) + '&body=' + encodedBody;
+    window.location.href = mailto;
+  }
+}
+
+// 點「分享」：呼叫手機系統分享面板（LINE / Messenger / Email 都可選）
+function shareReport() {
+  const text = generateTextReport(state);
+  const title = (state.info.name || '醫師') + ' - 個人品牌定位報告';
+  if (navigator.share) {
+    navigator.share({ title: title, text: text })
+      .catch(err => {
+        if (err && err.name !== 'AbortError') {
+          showToast('分享失敗，已改為複製到剪貼簿');
+          copyTextReport();
+        }
+      });
+  } else {
+    showToast('此瀏覽器不支援系統分享，已改為複製到剪貼簿');
+    copyTextReport();
+  }
+}
+
+// 簡單的提示（toast）
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;left:50%;bottom:32px;transform:translateX(-50%);background:#1A1614;color:#FBF8F3;padding:12px 20px;font-size:14px;font-family:"Noto Sans TC",sans-serif;letter-spacing:0.04em;z-index:9999;opacity:0;transition:opacity 0.25s;max-width:90%;text-align:center;line-height:1.5;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => { t.style.opacity = '0'; }, 2600);
+}
+
+// 萬一 clipboard 完全不行，顯示一個 textarea 讓使用者自己選取
+function showTextFallback(text) {
+  const c = document.getElementById('preview-container');
+  if (!c) return;
+  c.innerHTML = '<div style="margin-top:16px;padding:14px;background:#fff;border:1px dashed #B85C38;">'
+    + '<div style="font-size:12px;color:#B85C38;letter-spacing:0.1em;margin-bottom:8px;">複製失敗的備援：請長按下方文字 → 全選 → 複製</div>'
+    + '<textarea readonly style="width:100%;height:200px;font-size:13px;padding:10px;border:1px solid #D4CCC0;background:#FBF8F3;font-family:inherit;">'
+    + escapeHtml(text) + '</textarea></div>';
+}
+
+function openPrintWindow() {
+  const html = generateHtmlReport(state);
+  const w = window.open('', '_blank');
+  if (!w) {
+    alert('瀏覽器封鎖了新分頁，請允許彈出視窗');
+    return;
+  }
+  w.document.open();
+  w.document.write(html);
+  w.document.close();
+  setTimeout(() => { try { w.focus(); w.print(); } catch (e) {} }, 600);
+}
+
+let previewOpen = false;
+function togglePreview() {
+  const container = document.getElementById('preview-container');
+  if (!container) return;
+  if (previewOpen) {
+    container.innerHTML = '';
+    previewOpen = false;
+  } else {
+    const html = generateHtmlReport(state);
+    container.innerHTML = '<iframe class="preview-frame" srcdoc="' + escapeHtml(html) + '"></iframe>';
+    previewOpen = true;
+  }
+}
+
+function reset() {
+  state.info = { name: '', clinic: '', title: '', credentials: '', gender: '', age: '', attendingYears: '' };
+  state.basic = {};
+  state.personality = PERSONALITY_SCALES.reduce((acc, s) => { acc[s.id] = 3; return acc; }, {});
+  state.boundary = {};
+  state.easter = {};
+  previewOpen = false;
+  setStep(0);
+}
+
+// 初始化
+document.addEventListener('DOMContentLoaded', render);
+</script>
+</body>
+</html>
